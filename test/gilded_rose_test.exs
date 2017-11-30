@@ -120,4 +120,26 @@ defmodule GildedRoseTest do
 
     assert expected_items == items
   end
+
+  test "conjured object quality looses 2 point by time when sell_in positive" do
+    expected_item = %Item{name: "Conjured Mana Cake",
+                           sell_in: 9, quality: 8}
+    initial_item = %Item{name: "Conjured Mana Cake",
+                           sell_in: 10, quality: 10}
+
+    items = [initial_item] |> GildedRose.update_quality()
+
+    assert [expected_item] == items
+  end
+
+  test "conjured object quality looses 4 point by time when sell_in negative" do
+    expected_items = [%Item{name: "Conjured Mana Cake",
+                           sell_in: -1, quality: 6}]
+    initial_items = [%Item{name: "Conjured Mana Cake",
+                           sell_in: 0, quality: 10}]
+
+    items = initial_items |> GildedRose.update_quality()
+
+    assert expected_items == items
+  end
 end

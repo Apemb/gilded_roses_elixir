@@ -34,6 +34,17 @@ defmodule GildedRose do
               sell_in: sell_in - 1,
               quality: quality}
 
+      %Item{name: "Conjured Mana Cake", sell_in: sell_in, quality: quality} ->
+        quality = if sell_in > 0 do
+          quality - 2
+        else
+          quality - 4
+        end
+        quality = if quality < 0, do: 0, else: quality
+        %Item{name: "Conjured Mana Cake",
+              sell_in: sell_in - 1,
+              quality: quality}
+
       %Item{name: name, sell_in: sell_in, quality: quality} ->
         quality = if sell_in > 0 do
           quality - 1
